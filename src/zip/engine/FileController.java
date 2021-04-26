@@ -4,27 +4,41 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Paths;
 
 public class FileController {
-	public static File file;
+	public File file;
 	public static FileReader fr;
 	public static BufferedReader br;
 	public static String word = "";
 	public static LinkedList list = new LinkedList();
-	public static String text = "";
+	public String text = "";
+	public String path;
+	public String fileName;
+	public String zipFileName;
 
 	public static void main(String[] args) throws IOException {
-		readFile();
-		zipFile();
+		FileController fc = new FileController();
+		fc.readFile("filename.txt");
+		fc.zipFile();
+		
+		
+		
+		System.out.println(fc.path);
 		System.out.println(list);
 		System.out.println(list.length());
 		System.out.println();
-		System.out.println(text);
+		System.out.println(fc.text);
+		
+		fc.createFile();
+		fc.saveFile();
+		
 
 	}
 
-	public static void zipFile() throws IOException {
+	public void zipFile() throws IOException {
 		int c = 0;
 		while ((c = br.read()) != -1) {
 			char character = (char) c;
@@ -47,10 +61,13 @@ public class FileController {
 			}
 
 		}
+		text += "\n0";
 	}
 
-	public static void readFile() throws FileNotFoundException {
-		file = new File("filename.txt");
+	public void readFile(String file) throws FileNotFoundException {
+		this.file = new File(file);
+		this.fileName = file.replace(".txt", "");
+		this.path = Paths.get(this.file.getAbsolutePath().toString()).getParent().toString();
 		fr = new FileReader(file);
 		br = new BufferedReader(fr);
 	}
@@ -65,6 +82,29 @@ public class FileController {
 	}
 	
 	public void saveFile() {
-		
+		try {
+		      FileWriter myWriter = new FileWriter(this.zipFileName);
+		      myWriter.write(this.text);
+		      myWriter.close();
+		      System.out.println("Successfully wrote to the file.");
+		    } catch (IOException e) {
+		      System.out.println("An error occurred.");
+		      e.printStackTrace();
+		    }
+	}
+	
+	public void createFile() {
+		this.zipFileName = this.fileName + "_zip.txt";
+		try {
+		      File myObj = new File(this.zipFileName);
+		      if (myObj.createNewFile()) {
+		        System.out.println("File created: " + myObj.getName());
+		      } else {
+		        System.out.println("File already exists.");
+		      }
+		    } catch (IOException e) {
+		      System.out.println("An error occurred.");
+		      e.printStackTrace();
+		    }
 	}
 }
