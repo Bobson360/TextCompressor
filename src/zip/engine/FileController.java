@@ -31,7 +31,6 @@ public class FileController {
 					if (word.length() > 0) {
 						word = addWordAtList(
 								word.replace("-", "").replace(",", "").replace(".", "").replace(" ", "").trim());
-						System.out.println("Words to add: " + word);
 						text += word;
 						word = "";
 					}
@@ -98,19 +97,6 @@ public class FileController {
 		this.path = Paths.get(this.file.getAbsolutePath().toString()).getParent().toString();
 		fr = new FileReader(file);
 		br = new BufferedReader(fr);
-//		br.close();
-	}
-	
-	public void saveFile() {
-		try {
-		      FileWriter myWriter = new FileWriter(this.zipFileName);
-		      myWriter.write(this.text);
-		      myWriter.close();
-		      System.out.println("Successfully wrote to the file.");
-		    } catch (IOException e) {
-		      System.out.println("An error occurred.");
-		      e.printStackTrace();
-		    }
 	}
 	
 	public void createFile(String suffix) {
@@ -122,6 +108,18 @@ public class FileController {
 		      } else {
 		        System.out.println("File already exists.");
 		      }
+		    } catch (IOException e) {
+		      System.out.println("An error occurred.");
+		      e.printStackTrace();
+		    }
+	}
+	
+	public void saveFile() {
+		try {
+		      FileWriter myWriter = new FileWriter(this.zipFileName);
+		      myWriter.write(this.text);
+		      myWriter.close();
+		      System.out.println("Successfully wrote to the file.");
 		    } catch (IOException e) {
 		      System.out.println("An error occurred.");
 		      e.printStackTrace();
