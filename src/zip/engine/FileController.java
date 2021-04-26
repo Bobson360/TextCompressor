@@ -25,7 +25,6 @@ public class FileController {
 		fc.zipFile();
 		
 		
-		
 		System.out.println(fc.path);
 		System.out.println(list);
 		System.out.println(list.length());
