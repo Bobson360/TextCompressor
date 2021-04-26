@@ -19,23 +19,23 @@ public class FileController {
 	public String fileName;
 	public String zipFileName;
 
-	public static void main(String[] args) throws IOException {
-		FileController fc = new FileController();
-		fc.readFile("filename.txt");
-		fc.zipFile();
-		
-		
-		System.out.println(fc.path);
-		System.out.println(list);
-		System.out.println(list.length());
-		System.out.println();
-		System.out.println(fc.text);
-		
-		fc.createFile();
-		fc.saveFile();
-		
-
-	}
+//	public static void main(String[] args) throws IOException {
+//		FileController fc = new FileController();
+//		fc.readFile("filename.txt");
+//		fc.zipFile();
+//		
+//		
+//		System.out.println(fc.path);
+//		System.out.println(list);
+//		System.out.println(list.length());
+//		System.out.println();
+//		System.out.println(fc.text);
+//		
+//		fc.createFile();
+//		fc.saveFile();
+//		
+//
+//	}
 
 	public void zipFile() throws IOException {
 		int c = 0;
@@ -61,6 +61,36 @@ public class FileController {
 
 		}
 		text += "\n0";
+	}
+	
+	public void unZipFile() throws IOException {
+		int c = 0;
+		while ((c = br.read()) != -1) {
+			char character = (char) c;
+			String st = Character.toString(character);
+			if (st.matches("([a-zA-Z0-9\n\s,-.']+)")) {
+				if (st.matches("[a-zA-Z]+"))
+					word += st;
+				if(st.matches("([0-9]+)")) {
+					System.out.print("Encontrou numero: " + st + " -> ");
+					System.out.println(list.findWordByIndex(Integer.parseInt(st)));
+//					word = list.findWordByIndex(Integer.parseInt(st));
+				}
+				if (st.matches("([\n\s,-.']+)")) {
+					if (word.length() > 0) {
+						word = addWordAtList(
+								word.replace("-", "").replace(",", "").replace(".", "").replace(" ", "").trim());
+						System.out.println("Words to add: " + word);
+						text += word;
+						word = "";
+					}
+				}
+				if (st.matches("([^a-zA-Z])")) {
+					text += st;
+				}
+			}
+
+		}
 	}
 
 	public void readFile(String file) throws FileNotFoundException {

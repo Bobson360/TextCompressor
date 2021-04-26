@@ -1,37 +1,31 @@
 package zip;
 
+import java.io.IOException;
+
+import zip.engine.FileController;
 import zip.engine.LinkedList;
 
 public class AppTest {
 	public static LinkedList list = new LinkedList();
-	public static void main(String[] args) {
-//		String str = "Dear Sally,\r\n"
-//				+ "Please, please do it--it would please\r\n"
-//				+ "Mary very, very much. And Mary would\r\n"
-//				+ "do everything in Mary's power to make\r\n"
-//				+ "it pay off for you.\r\n"
-//				+ "-- Thank you very much -- 56";
-//		String findStr = "Mary";
-//		int lastIndex = 0;
-//		int count = 0;
-//
-//		while(lastIndex != -1){
-//
-//		    lastIndex = str.indexOf(findStr,lastIndex);
-//
-//		    if(lastIndex != -1){
-//		        count ++;
-//		        lastIndex += findStr.length();
-//		    }
-//		}
-//		System.out.println(count);
-//		System.out.println(str.lastIndexOf(findStr));
-		StringBuilder myName = new StringBuilder("domanokz");
-		myName.setCharAt(4, 'x');
-
-		System.out.println(myName);
-//		str = str.repla
+	public static void main(String[] args) throws IOException {
+		FileController f1 = new FileController();
+		FileController f2 = new FileController();
+//		f1.readFile("filename.txt");
+		f2.readFile("filename_zip.txt");
+//		f1.zipFile();
+		f2.unZipFile();
+		
+		
+//		System.out.println(f1.path);
+//		System.out.println(list);
+//		System.out.println(list.length());
+//		System.out.println();
+		System.out.println(f2.text);
+		
+//		f1.createFile();
+//		f1.saveFile();
+//		f2.createFile();
+//		f2.saveFile();
 	}
 	
-//	public void change
 }
